@@ -10,3 +10,5 @@ The shoes were nike brand 5.5 U.S they work well and fit well, however part of i
 
 
 If anything breaks replace the part or find a professional welder, do not JB weld. 
+
+Add tracking devices to equipment like controller and robots. 
