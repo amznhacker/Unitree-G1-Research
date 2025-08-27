@@ -7,3 +7,6 @@ The robot fits best with size 5.5 shoes, however it is hard to put on, we are us
 # Clothing 
 Tshirt with branding - The black tshirt was big and it fell multiple times, therefore some of the shirt ripped. 
 The shoes were nike brand 5.5 U.S they work well and fit well, however part of it started ripping. 
+
+
+If anything breaks replace the part or find a professional welder, do not JB weld. 
