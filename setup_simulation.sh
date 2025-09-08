@@ -7,6 +7,13 @@ echo "🎭 Setting up G1 simulation..."
 
 cd ~/g1_workspace
 
+# Copy dance examples if not already there
+if [ ! -d "dance_examples" ]; then
+    echo "🎭 Copying dance examples..."
+    cp -r $OLDPWD/dance_examples ~/g1_workspace/
+    chmod +x ~/g1_workspace/dance_examples/*.py
+fi
+
 # Install packages
 pip3 install --user mujoco numpy matplotlib
 

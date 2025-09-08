@@ -25,6 +25,11 @@ cd ~/g1_workspace
 git clone https://github.com/unitreerobotics/unitree_sdk2.git
 git clone https://github.com/unitreerobotics/unitree_ros.git
 
+# Copy dance examples to workspace
+echo "🎭 Copying dance examples..."
+cp -r $OLDPWD/dance_examples ~/g1_workspace/
+chmod +x ~/g1_workspace/dance_examples/*.py
+
 # Build SDK
 cd unitree_sdk2
 mkdir build && cd build

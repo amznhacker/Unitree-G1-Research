@@ -5,13 +5,16 @@ Complete documentation and simulation environment for Unitree G1 humanoid robot.
 ## 🚀 Quick Start
 
 ```bash
-# 1. Setup environment (Ubuntu only)
+# 1. Make scripts executable
+chmod +x *.sh
+
+# 2. Setup environment (Ubuntu only)
 ./ubuntu_setup_script.sh && source ~/.bashrc
 
-# 2. Setup simulation
+# 3. Setup simulation
 ./setup_simulation.sh
 
-# 3. Run dances
+# 4. Run dances
 cd ~/g1_workspace/dance_examples
 python3 dance_simulator.py
 ```
@@ -32,6 +35,21 @@ python3 salsa_dance.py
 python3 bachata_dance.py
 python3 robot_dance.py
 ```
+
+## 🤖 Simulation to Real Robot
+
+**How it works:** Simulation tests dance safety → Deploy to real G1
+
+```bash
+# 1. Test in simulation
+cd ~/g1_workspace/dance_examples
+python3 cumbia_dance.py
+
+# 2. Deploy to real robot (if simulation looks good)
+python3 deploy_to_robot.py cumbia 15
+```
+
+**Read:** [G1_SIMULATION_GUIDE.md](G1_SIMULATION_GUIDE.md) - Complete workflow explanation
 
 ## 📋 Documentation
 
