@@ -25,71 +25,78 @@ class G1ModelLoader:
                 <body name="pelvis" pos="0 0 0.93">
                     <freejoint/>
                     <geom type="box" size="0.15 0.1 0.08" rgba="0.2 0.2 0.2 1"/>
-                    <joint name="waist_yaw" type="hinge" axis="0 0 1"/>
                     
-                    <!-- Legs -->
-                    <body name="left_leg" pos="0 0.1 -0.05">
-                        <joint name="left_hip_yaw" type="hinge" axis="0 0 1"/>
-                        <joint name="left_hip_roll" type="hinge" axis="1 0 0"/>
-                        <joint name="left_hip_pitch" type="hinge" axis="0 1 0"/>
-                        <geom type="capsule" size="0.04 0.2" rgba="0.8 0.2 0.2 1"/>
-                        <body name="left_shin" pos="0 0 -0.4">
-                            <joint name="left_knee" type="hinge" axis="0 1 0"/>
-                            <geom type="capsule" size="0.035 0.15" rgba="0.6 0.2 0.2 1"/>
-                            <body name="left_foot" pos="0 0 -0.3">
-                                <joint name="left_ankle_pitch" type="hinge" axis="0 1 0"/>
-                                <joint name="left_ankle_roll" type="hinge" axis="1 0 0"/>
-                                <geom type="box" size="0.08 0.04 0.02" rgba="0.2 0.2 0.2 1"/>
-                            </body>
-                        </body>
-                    </body>
-                    
-                    <body name="right_leg" pos="0 -0.1 -0.05">
-                        <joint name="right_hip_yaw" type="hinge" axis="0 0 1"/>
-                        <joint name="right_hip_roll" type="hinge" axis="1 0 0"/>
-                        <joint name="right_hip_pitch" type="hinge" axis="0 1 0"/>
-                        <geom type="capsule" size="0.04 0.2" rgba="0.8 0.2 0.2 1"/>
-                        <body name="right_shin" pos="0 0 -0.4">
-                            <joint name="right_knee" type="hinge" axis="0 1 0"/>
-                            <geom type="capsule" size="0.035 0.15" rgba="0.6 0.2 0.2 1"/>
-                            <body name="right_foot" pos="0 0 -0.3">
-                                <joint name="right_ankle_pitch" type="hinge" axis="0 1 0"/>
-                                <joint name="right_ankle_roll" type="hinge" axis="1 0 0"/>
-                                <geom type="box" size="0.08 0.04 0.02" rgba="0.2 0.2 0.2 1"/>
-                            </body>
-                        </body>
-                    </body>
-                    
-                    <!-- Torso and Arms -->
-                    <body name="torso" pos="0 0 0.15">
-                        <geom type="box" size="0.12 0.08 0.2" rgba="0.2 0.6 0.2 1"/>
+                    <!-- Waist -->
+                    <body name="waist" pos="0 0 0.05">
+                        <joint name="waist_yaw" type="hinge" axis="0 0 1"/>
                         
-                        <body name="left_arm" pos="0 0.15 0.15">
-                            <joint name="left_shoulder_pitch" type="hinge" axis="0 1 0"/>
-                            <joint name="left_shoulder_roll" type="hinge" axis="1 0 0"/>
-                            <joint name="left_shoulder_yaw" type="hinge" axis="0 0 1"/>
-                            <geom type="capsule" size="0.03 0.12" rgba="0.2 0.8 0.2 1"/>
-                            <body name="left_forearm" pos="0 0 -0.24">
-                                <joint name="left_elbow" type="hinge" axis="0 1 0"/>
-                                <geom type="capsule" size="0.025 0.1" rgba="0.2 0.6 0.2 1"/>
-                                <body name="left_hand" pos="0 0 -0.2">
-                                    <joint name="left_wrist_roll" type="hinge" axis="0 0 1"/>
-                                    <geom type="box" size="0.03 0.02 0.05" rgba="0.2 0.4 0.2 1"/>
+                        <!-- Left Leg -->
+                        <body name="left_hip" pos="0 0.1 -0.1">
+                            <joint name="left_hip_yaw" type="hinge" axis="0 0 1"/>
+                            <joint name="left_hip_roll" type="hinge" axis="1 0 0"/>
+                            <joint name="left_hip_pitch" type="hinge" axis="0 1 0"/>
+                            <geom type="capsule" size="0.04 0.2" rgba="0.8 0.2 0.2 1"/>
+                            <body name="left_knee" pos="0 0 -0.4">
+                                <joint name="left_knee" type="hinge" axis="0 1 0"/>
+                                <geom type="capsule" size="0.035 0.15" rgba="0.6 0.2 0.2 1"/>
+                                <body name="left_ankle" pos="0 0 -0.3">
+                                    <joint name="left_ankle_pitch" type="hinge" axis="0 1 0"/>
+                                    <joint name="left_ankle_roll" type="hinge" axis="1 0 0"/>
+                                    <geom type="box" size="0.08 0.04 0.02" rgba="0.2 0.2 0.2 1"/>
                                 </body>
                             </body>
                         </body>
                         
-                        <body name="right_arm" pos="0 -0.15 0.15">
-                            <joint name="right_shoulder_pitch" type="hinge" axis="0 1 0"/>
-                            <joint name="right_shoulder_roll" type="hinge" axis="1 0 0"/>
-                            <joint name="right_shoulder_yaw" type="hinge" axis="0 0 1"/>
-                            <geom type="capsule" size="0.03 0.12" rgba="0.2 0.8 0.2 1"/>
-                            <body name="right_forearm" pos="0 0 -0.24">
-                                <joint name="right_elbow" type="hinge" axis="0 1 0"/>
-                                <geom type="capsule" size="0.025 0.1" rgba="0.2 0.6 0.2 1"/>
-                                <body name="right_hand" pos="0 0 -0.2">
-                                    <joint name="right_wrist_roll" type="hinge" axis="0 0 1"/>
-                                    <geom type="box" size="0.03 0.02 0.05" rgba="0.2 0.4 0.2 1"/>
+                        <!-- Right Leg -->
+                        <body name="right_hip" pos="0 -0.1 -0.1">
+                            <joint name="right_hip_yaw" type="hinge" axis="0 0 1"/>
+                            <joint name="right_hip_roll" type="hinge" axis="1 0 0"/>
+                            <joint name="right_hip_pitch" type="hinge" axis="0 1 0"/>
+                            <geom type="capsule" size="0.04 0.2" rgba="0.8 0.2 0.2 1"/>
+                            <body name="right_knee" pos="0 0 -0.4">
+                                <joint name="right_knee" type="hinge" axis="0 1 0"/>
+                                <geom type="capsule" size="0.035 0.15" rgba="0.6 0.2 0.2 1"/>
+                                <body name="right_ankle" pos="0 0 -0.3">
+                                    <joint name="right_ankle_pitch" type="hinge" axis="0 1 0"/>
+                                    <joint name="right_ankle_roll" type="hinge" axis="1 0 0"/>
+                                    <geom type="box" size="0.08 0.04 0.02" rgba="0.2 0.2 0.2 1"/>
+                                </body>
+                            </body>
+                        </body>
+                        
+                        <!-- Torso -->
+                        <body name="torso" pos="0 0 0.1">
+                            <geom type="box" size="0.12 0.08 0.2" rgba="0.2 0.6 0.2 1"/>
+                            
+                            <!-- Left Arm -->
+                            <body name="left_shoulder" pos="0 0.15 0.15">
+                                <joint name="left_shoulder_pitch" type="hinge" axis="0 1 0"/>
+                                <joint name="left_shoulder_roll" type="hinge" axis="1 0 0"/>
+                                <joint name="left_shoulder_yaw" type="hinge" axis="0 0 1"/>
+                                <geom type="capsule" size="0.03 0.12" rgba="0.2 0.8 0.2 1"/>
+                                <body name="left_elbow" pos="0 0 -0.24">
+                                    <joint name="left_elbow" type="hinge" axis="0 1 0"/>
+                                    <geom type="capsule" size="0.025 0.1" rgba="0.2 0.6 0.2 1"/>
+                                    <body name="left_wrist" pos="0 0 -0.2">
+                                        <joint name="left_wrist_roll" type="hinge" axis="0 0 1"/>
+                                        <geom type="box" size="0.03 0.02 0.05" rgba="0.2 0.4 0.2 1"/>
+                                    </body>
+                                </body>
+                            </body>
+                            
+                            <!-- Right Arm -->
+                            <body name="right_shoulder" pos="0 -0.15 0.15">
+                                <joint name="right_shoulder_pitch" type="hinge" axis="0 1 0"/>
+                                <joint name="right_shoulder_roll" type="hinge" axis="1 0 0"/>
+                                <joint name="right_shoulder_yaw" type="hinge" axis="0 0 1"/>
+                                <geom type="capsule" size="0.03 0.12" rgba="0.2 0.8 0.2 1"/>
+                                <body name="right_elbow" pos="0 0 -0.24">
+                                    <joint name="right_elbow" type="hinge" axis="0 1 0"/>
+                                    <geom type="capsule" size="0.025 0.1" rgba="0.2 0.6 0.2 1"/>
+                                    <body name="right_wrist" pos="0 0 -0.2">
+                                        <joint name="right_wrist_roll" type="hinge" axis="0 0 1"/>
+                                        <geom type="box" size="0.03 0.02 0.05" rgba="0.2 0.4 0.2 1"/>
+                                    </body>
                                 </body>
                             </body>
                         </body>
