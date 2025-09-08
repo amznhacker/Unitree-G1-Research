@@ -8,6 +8,7 @@ This repository contains comprehensive operating procedures and documentation fo
 - **[G1_Operating_Procedures.md](G1_Operating_Procedures.md)** - Complete operating procedures manual
 - **[Pre_Operation_Checklist.md](Pre_Operation_Checklist.md)** - Field checklist (print and use)
 - **[Emergency_Procedures_Quick_Reference.md](Emergency_Procedures_Quick_Reference.md)** - Emergency response guide
+- **[G1_Development_Setup_Guide.md](G1_Development_Setup_Guide.md)** - Simulation and custom movement development
 
 ### Tracking and Logging
 - **[Daily_Operation_Log_Template.md](Daily_Operation_Log_Template.md)** - Daily operation documentation
