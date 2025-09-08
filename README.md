@@ -2,7 +2,7 @@
 
 Complete documentation and simulation environment for Unitree G1 humanoid robot.
 
-## 🚀 Quick Start - Get Dancing in 10 Minutes
+## 🚀 Quick Start
 
 ```bash
 # 1. Setup environment (Ubuntu only)
@@ -15,8 +15,6 @@ Complete documentation and simulation environment for Unitree G1 humanoid robot.
 cd ~/g1_workspace/dance_examples
 python3 dance_simulator.py
 ```
-
-**Need help?** → [SIMULATION_QUICKSTART.md](SIMULATION_QUICKSTART.md)
 
 ## 🎭 Available Dances
 

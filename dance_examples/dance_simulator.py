@@ -7,88 +7,22 @@ import numpy as np
 import mujoco
 import mujoco.viewer
 import time
+import os
+from g1_model_loader import G1ModelLoader
 from cumbia_dance import CumbiaDance
 from salsa_dance import SalsaDance
 from bachata_dance import BachataDance
 from robot_dance import RobotDance
 
 class G1DanceSimulator:
-    def __init__(self, model_path=None):
-        # For now, create a simple model - replace with actual G1 URDF
-        self.model_xml = """
-        <mujoco>
-            <worldbody>
-                <body name="torso" pos="0 0 1">
-                    <geom type="box" size="0.2 0.1 0.3" rgba="0.8 0.2 0.2 1"/>
-                    <joint name="waist" type="hinge" axis="0 0 1"/>
-                    
-                    <body name="left_arm" pos="-0.25 0 0.2">
-                        <geom type="capsule" size="0.05 0.3" rgba="0.2 0.8 0.2 1"/>
-                        <joint name="left_shoulder_pitch" type="hinge" axis="1 0 0"/>
-                        <joint name="left_shoulder_roll" type="hinge" axis="0 1 0"/>
-                        
-                        <body name="left_forearm" pos="0 0 -0.3">
-                            <geom type="capsule" size="0.04 0.25" rgba="0.2 0.8 0.2 1"/>
-                            <joint name="left_elbow" type="hinge" axis="1 0 0"/>
-                        </body>
-                    </body>
-                    
-                    <body name="right_arm" pos="0.25 0 0.2">
-                        <geom type="capsule" size="0.05 0.3" rgba="0.2 0.8 0.2 1"/>
-                        <joint name="right_shoulder_pitch" type="hinge" axis="1 0 0"/>
-                        <joint name="right_shoulder_roll" type="hinge" axis="0 1 0"/>
-                        
-                        <body name="right_forearm" pos="0 0 -0.3">
-                            <geom type="capsule" size="0.04 0.25" rgba="0.2 0.8 0.2 1"/>
-                            <joint name="right_elbow" type="hinge" axis="1 0 0"/>
-                        </body>
-                    </body>
-                    
-                    <body name="left_leg" pos="-0.1 0 -0.3">
-                        <geom type="capsule" size="0.06 0.4" rgba="0.2 0.2 0.8 1"/>
-                        <joint name="left_hip_pitch" type="hinge" axis="1 0 0"/>
-                        <joint name="left_hip_roll" type="hinge" axis="0 1 0"/>
-                        <joint name="left_hip_yaw" type="hinge" axis="0 0 1"/>
-                    </body>
-                    
-                    <body name="right_leg" pos="0.1 0 -0.3">
-                        <geom type="capsule" size="0.06 0.4" rgba="0.2 0.2 0.8 1"/>
-                        <joint name="right_hip_pitch" type="hinge" axis="1 0 0"/>
-                        <joint name="right_hip_roll" type="hinge" axis="0 1 0"/>
-                        <joint name="right_hip_yaw" type="hinge" axis="0 0 1"/>
-                    </body>
-                </body>
-            </worldbody>
-            
-            <actuator>
-                <motor joint="waist"/>
-                <motor joint="left_shoulder_pitch"/>
-                <motor joint="left_shoulder_roll"/>
-                <motor joint="left_elbow"/>
-                <motor joint="right_shoulder_pitch"/>
-                <motor joint="right_shoulder_roll"/>
-                <motor joint="right_elbow"/>
-                <motor joint="left_hip_pitch"/>
-                <motor joint="left_hip_roll"/>
-                <motor joint="left_hip_yaw"/>
-                <motor joint="right_hip_pitch"/>
-                <motor joint="right_hip_roll"/>
-                <motor joint="right_hip_yaw"/>
-            </actuator>
-        </mujoco>
-        """
-        
-        self.model = mujoco.MjModel.from_xml_string(self.model_xml)
+    def __init__(self):
+        loader = G1ModelLoader()
+        self.model = loader.load_g1_model()
         self.data = mujoco.MjData(self.model)
-        
-        # Joint mapping
-        self.joint_names = [
-            'left_hip_yaw', 'left_hip_roll', 'left_hip_pitch',
-            'right_hip_yaw', 'right_hip_roll', 'right_hip_pitch',
-            'left_shoulder_pitch', 'left_shoulder_roll', 'left_elbow',
-            'right_shoulder_pitch', 'right_shoulder_roll', 'right_elbow',
-            'waist'
-        ]
+        self.joint_names = loader.get_joint_names()
+        print(f"✅ G1 ready with {len(self.joint_names)} DOF")
+    
+
     
     def run_dance(self, dance_class, duration=20):
         """Run a specific dance in simulation"""
