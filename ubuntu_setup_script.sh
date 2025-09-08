@@ -96,10 +96,5 @@ echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:/usr/local/lib" >> ~/.bashrc
 # Source the bashrc
 source ~/.bashrc
 
-echo "✅ Setup complete! Please run 'source ~/.bashrc' or restart your terminal."
-echo "🎉 Your G1 development environment is ready!"
-echo ""
-echo "Next steps:"
-echo "1. cd ~/g1_workspace/dance_examples"
-echo "2. Run the dance examples we've created"
-echo "3. Start developing your own movements!"
+echo "✅ Setup complete!"
+echo "🚀 Next: ./setup_simulation.sh"
