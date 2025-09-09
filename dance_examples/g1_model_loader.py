@@ -31,7 +31,6 @@ class G1ModelLoader:
             <worldbody>
                 <geom type="plane" size="10 10 0.1" rgba=".9 .9 .9 1"/>
                 <body name="pelvis" pos="0 0 0.93">
-                    <freejoint/>
                     <geom type="box" size="0.15 0.1 0.08" rgba="0.2 0.2 0.2 1"/>
                     
                     <!-- Waist -->

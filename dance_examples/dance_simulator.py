@@ -49,10 +49,14 @@ class G1DanceSimulator:
                         self.model, mujoco.mjtObj.mjOBJ_ACTUATOR, joint_name
                     )
                     if joint_id >= 0:
-                        # Smooth transition to standing pose
-                        target = 0.0  # Neutral position
-                        if 'knee' in joint_name:
-                            target = -0.1  # Slight knee bend for stability
+                        # Set to proper standing position
+                        target = 0.0
+                        if 'hip_pitch' in joint_name:
+                            target = -0.2  # Slight forward lean
+                        elif 'knee' in joint_name:
+                            target = -0.3  # Bent knees for stability
+                        elif 'ankle_pitch' in joint_name:
+                            target = 0.1   # Slight ankle adjustment
                         self.data.ctrl[joint_id] = target * progress
                 
                 mujoco.mj_step(self.model, self.data)
@@ -80,7 +84,7 @@ class G1DanceSimulator:
                             self.model, mujoco.mjtObj.mjOBJ_ACTUATOR, joint_name
                         )
                         if joint_id >= 0:
-                            self.data.ctrl[joint_id] = frame['joints'][i] * 1.5  # Reduced amplification
+                            self.data.ctrl[joint_id] = frame['joints'][i] * 0.8  # More realistic movement
                 
                 mujoco.mj_step(self.model, self.data)
                 viewer.sync()
