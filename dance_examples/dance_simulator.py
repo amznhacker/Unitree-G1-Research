@@ -43,7 +43,7 @@ class G1DanceSimulator:
                        sequence[frame_idx]['time'] < current_time):
                     frame_idx += 1
                 
-                # Apply joint commands
+                # Apply joint commands with higher gains
                 frame = sequence[frame_idx]
                 for i, joint_name in enumerate(self.joint_names):
                     if i < len(frame['joints']):
@@ -51,13 +51,13 @@ class G1DanceSimulator:
                             self.model, mujoco.mjtObj.mjOBJ_ACTUATOR, joint_name
                         )
                         if joint_id >= 0:
-                            self.data.ctrl[joint_id] = frame['joints'][i]
+                            self.data.ctrl[joint_id] = frame['joints'][i] * 2.0  # Amplify movements
                 
                 # Step simulation
                 mujoco.mj_step(self.model, self.data)
                 viewer.sync()
                 
-                time.sleep(0.02)  # 50Hz
+                time.sleep(0.01)  # 100Hz for smoother playback
         
         print(f"✅ {dance_class.__name__} complete!")
     

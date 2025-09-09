@@ -30,18 +30,19 @@ class CumbiaDance:
             'waist': 12
         }
     
-    def hip_sway_pattern(self, t, amplitude=0.3):
+    def hip_sway_pattern(self, t, amplitude=0.8):
         """Classic cumbia hip sway - figure-8 motion"""
         hip_roll = amplitude * math.sin(2 * math.pi * t / (2 * self.beat_duration))
         hip_yaw = amplitude * 0.5 * math.sin(2 * math.pi * t / self.beat_duration)
-        return hip_roll, hip_yaw
+        hip_pitch = 0.3 * math.sin(2 * math.pi * t / (3 * self.beat_duration))
+        return hip_roll, hip_yaw, hip_pitch
     
     def arm_wave_pattern(self, t, side='left'):
         """Flowing arm movements characteristic of cumbia"""
         phase = 0 if side == 'left' else math.pi/2
-        shoulder_pitch = 0.4 * math.sin(2 * math.pi * t / (4 * self.beat_duration) + phase)
-        shoulder_roll = 0.3 * math.cos(2 * math.pi * t / (3 * self.beat_duration) + phase)
-        elbow = 0.6 + 0.4 * math.sin(2 * math.pi * t / (4 * self.beat_duration) + phase + math.pi/4)
+        shoulder_pitch = 1.0 * math.sin(2 * math.pi * t / (4 * self.beat_duration) + phase)
+        shoulder_roll = 0.8 * math.cos(2 * math.pi * t / (3 * self.beat_duration) + phase)
+        elbow = -1.2 + 0.8 * math.sin(2 * math.pi * t / (4 * self.beat_duration) + phase + math.pi/4)
         return shoulder_pitch, shoulder_roll, elbow
     
     def generate_sequence(self, duration=30):
@@ -51,19 +52,30 @@ class CumbiaDance:
         
         for i in range(int(duration / dt)):
             t = i * dt
-            hip_roll, hip_yaw = self.hip_sway_pattern(t)
+            hip_roll, hip_yaw, hip_pitch = self.hip_sway_pattern(t)
             l_shoulder_pitch, l_shoulder_roll, l_elbow = self.arm_wave_pattern(t, 'left')
             r_shoulder_pitch, r_shoulder_roll, r_elbow = self.arm_wave_pattern(t, 'right')
-            waist_rotation = 0.2 * math.sin(2 * math.pi * t / (4 * self.beat_duration))
+            waist_rotation = 0.6 * math.sin(2 * math.pi * t / (4 * self.beat_duration))
             
-            joint_cmd = np.zeros(len(self.joints))
-            joint_cmd[self.joints['left_hip_roll']] = hip_roll
-            joint_cmd[self.joints['right_hip_roll']] = -hip_roll
-            joint_cmd[self.joints['left_shoulder_pitch']] = l_shoulder_pitch
-            joint_cmd[self.joints['right_shoulder_pitch']] = r_shoulder_pitch
-            joint_cmd[self.joints['waist']] = waist_rotation
+            joint_cmd = np.zeros(23)  # Full 23DOF
+            # Hips
+            joint_cmd[1] = hip_yaw      # left_hip_yaw
+            joint_cmd[2] = hip_roll     # left_hip_roll  
+            joint_cmd[3] = hip_pitch    # left_hip_pitch
+            joint_cmd[7] = -hip_yaw     # right_hip_yaw
+            joint_cmd[8] = -hip_roll    # right_hip_roll
+            joint_cmd[9] = hip_pitch    # right_hip_pitch
+            # Arms
+            joint_cmd[13] = l_shoulder_pitch  # left_shoulder_pitch
+            joint_cmd[14] = l_shoulder_roll   # left_shoulder_roll
+            joint_cmd[16] = l_elbow           # left_elbow
+            joint_cmd[18] = r_shoulder_pitch  # right_shoulder_pitch
+            joint_cmd[19] = r_shoulder_roll   # right_shoulder_roll
+            joint_cmd[21] = r_elbow           # right_elbow
+            # Waist
+            joint_cmd[0] = waist_rotation     # waist_yaw
             
-            sequence.append({'time': t, 'joints': joint_cmd.copy()})
+            sequence.append({'time': t, 'joints': joint_cmd.tolist()})
         
         return sequence
 
