@@ -72,15 +72,15 @@ class G1DanceSimulator:
                        sequence[frame_idx]['time'] < current_time):
                     frame_idx += 1
                 
-                # Apply joint commands
+                # Apply joint commands (skip empty joints)
                 frame = sequence[frame_idx]
                 for i, joint_name in enumerate(self.joint_names):
-                    if i < len(frame['joints']):
+                    if i < len(frame['joints']) and not joint_name.startswith('empty_'):
                         joint_id = mujoco.mj_name2id(
                             self.model, mujoco.mjtObj.mjOBJ_ACTUATOR, joint_name
                         )
                         if joint_id >= 0:
-                            self.data.ctrl[joint_id] = frame['joints'][i] * 2.0
+                            self.data.ctrl[joint_id] = frame['joints'][i] * 1.5  # Reduced amplification
                 
                 mujoco.mj_step(self.model, self.data)
                 viewer.sync()

@@ -142,20 +142,25 @@ class G1ModelLoader:
         return mujoco.MjModel.from_xml_string(model_xml)
     
     def get_joint_names(self):
-        """Return G1 23DOF joint names in order"""
+        """Return G1 23DOF joint names in correct order matching Unitree SDK"""
         return [
-            # Waist (1 DOF)
-            'waist_yaw',
-            # Left Leg (6 DOF)
-            'left_hip_yaw', 'left_hip_roll', 'left_hip_pitch',
+            # Index 0-11: Legs
+            'left_hip_pitch', 'left_hip_roll', 'left_hip_yaw',
             'left_knee', 'left_ankle_pitch', 'left_ankle_roll',
-            # Right Leg (6 DOF)
-            'right_hip_yaw', 'right_hip_roll', 'right_hip_pitch', 
+            'right_hip_pitch', 'right_hip_roll', 'right_hip_yaw', 
             'right_knee', 'right_ankle_pitch', 'right_ankle_roll',
-            # Left Arm (5 DOF)
+            # Index 12: Waist
+            'waist_yaw',
+            # Index 13-14: Empty for 23DOF
+            'empty_13', 'empty_14',
+            # Index 15-19: Left Arm
             'left_shoulder_pitch', 'left_shoulder_roll', 'left_shoulder_yaw',
             'left_elbow', 'left_wrist_roll',
-            # Right Arm (5 DOF)
+            # Index 20-21: Empty for 23DOF
+            'empty_20', 'empty_21',
+            # Index 22-26: Right Arm
             'right_shoulder_pitch', 'right_shoulder_roll', 'right_shoulder_yaw',
-            'right_elbow', 'right_wrist_roll'
+            'right_elbow', 'right_wrist_roll',
+            # Index 27-28: Empty for 23DOF
+            'empty_27', 'empty_28'
         ]

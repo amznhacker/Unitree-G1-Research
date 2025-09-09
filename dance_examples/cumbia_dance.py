@@ -57,32 +57,44 @@ class CumbiaDance:
             r_shoulder_pitch, r_shoulder_roll, r_elbow = self.arm_wave_pattern(t, 'right')
             waist_rotation = 0.6 * math.sin(2 * math.pi * t / (4 * self.beat_duration))
             
-            joint_cmd = np.zeros(23)  # Full 23DOF
+            joint_cmd = np.zeros(29)  # Use 29 for compatibility
             # Add stepping pattern
             step_phase = math.sin(2 * math.pi * t / self.beat_duration)
             left_step = 0.4 * max(0, step_phase)  # Lift left foot
             right_step = 0.4 * max(0, -step_phase)  # Lift right foot
             
-            # Hips with stepping
-            joint_cmd[1] = hip_yaw      # left_hip_yaw
-            joint_cmd[2] = hip_roll     # left_hip_roll  
-            joint_cmd[3] = hip_pitch + left_step    # left_hip_pitch
-            joint_cmd[4] = -left_step * 0.8         # left_knee
-            joint_cmd[5] = left_step * 0.4          # left_ankle_pitch
-            joint_cmd[7] = -hip_yaw     # right_hip_yaw
-            joint_cmd[8] = -hip_roll    # right_hip_roll
-            joint_cmd[9] = hip_pitch + right_step   # right_hip_pitch
-            joint_cmd[10] = -right_step * 0.8       # right_knee
-            joint_cmd[11] = right_step * 0.4        # right_ankle_pitch
-            # Arms
-            joint_cmd[13] = l_shoulder_pitch  # left_shoulder_pitch
-            joint_cmd[14] = l_shoulder_roll   # left_shoulder_roll
-            joint_cmd[16] = l_elbow           # left_elbow
-            joint_cmd[18] = r_shoulder_pitch  # right_shoulder_pitch
-            joint_cmd[19] = r_shoulder_roll   # right_shoulder_roll
-            joint_cmd[21] = r_elbow           # right_elbow
-            # Waist
-            joint_cmd[0] = waist_rotation     # waist_yaw
+            # Left leg (indices 0-5)
+            joint_cmd[0] = hip_pitch + left_step    # left_hip_pitch
+            joint_cmd[1] = hip_roll                 # left_hip_roll  
+            joint_cmd[2] = hip_yaw                  # left_hip_yaw
+            joint_cmd[3] = -left_step * 0.8         # left_knee
+            joint_cmd[4] = left_step * 0.4          # left_ankle_pitch
+            joint_cmd[5] = 0                        # left_ankle_roll
+            
+            # Right leg (indices 6-11)
+            joint_cmd[6] = hip_pitch + right_step   # right_hip_pitch
+            joint_cmd[7] = -hip_roll                # right_hip_roll
+            joint_cmd[8] = -hip_yaw                 # right_hip_yaw
+            joint_cmd[9] = -right_step * 0.8        # right_knee
+            joint_cmd[10] = right_step * 0.4        # right_ankle_pitch
+            joint_cmd[11] = 0                       # right_ankle_roll
+            
+            # Waist (index 12)
+            joint_cmd[12] = waist_rotation          # waist_yaw
+            
+            # Left arm (indices 15-19)
+            joint_cmd[15] = l_shoulder_pitch        # left_shoulder_pitch
+            joint_cmd[16] = l_shoulder_roll         # left_shoulder_roll
+            joint_cmd[17] = 0                       # left_shoulder_yaw
+            joint_cmd[18] = l_elbow                 # left_elbow
+            joint_cmd[19] = 0                       # left_wrist_roll
+            
+            # Right arm (indices 22-26)
+            joint_cmd[22] = r_shoulder_pitch        # right_shoulder_pitch
+            joint_cmd[23] = r_shoulder_roll         # right_shoulder_roll
+            joint_cmd[24] = 0                       # right_shoulder_yaw
+            joint_cmd[25] = r_elbow                 # right_elbow
+            joint_cmd[26] = 0                       # right_wrist_roll
             
             sequence.append({'time': t, 'joints': joint_cmd.tolist()})
         

@@ -35,9 +35,11 @@ cd unitree_sdk2
 mkdir build && cd build
 cmake .. && make -j$(nproc) && sudo make install
 
-# Environment
-echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc
+# Clean environment setup
+echo "# G1 Environment" >> ~/.bashrc
+echo "unset ROS_DISTRO" >> ~/.bashrc
 echo "export G1_WORKSPACE=~/g1_workspace" >> ~/.bashrc
+echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc
 
 echo "✅ Setup complete!"
-echo "🚀 Next: ./setup_simulation.sh"
+echo "🚀 Next: source ~/.bashrc && ./setup_simulation.sh"
