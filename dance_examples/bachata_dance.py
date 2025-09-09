@@ -56,12 +56,23 @@ class BachataDance:
             # Subtle waist movement
             waist_sway = 0.15 * math.sin(2 * math.pi * t / (4 * self.beat_duration))
             
-            joint_cmd = np.zeros(len(self.joints))
-            joint_cmd[self.joints['left_hip_roll']] = hip_pop + left_step
-            joint_cmd[self.joints['right_hip_roll']] = hip_pop + right_step
-            joint_cmd[self.joints['left_shoulder_pitch']] = l_shoulder_pitch
-            joint_cmd[self.joints['right_shoulder_pitch']] = r_shoulder_pitch
-            joint_cmd[self.joints['waist']] = waist_sway
+            joint_cmd = np.zeros(29)
+            # Left leg
+            joint_cmd[0] = left_step * 0.3      # left_hip_pitch
+            joint_cmd[1] = hip_pop + left_step  # left_hip_roll
+            # Right leg
+            joint_cmd[6] = right_step * 0.3     # right_hip_pitch
+            joint_cmd[7] = hip_pop + right_step # right_hip_roll
+            # Waist
+            joint_cmd[12] = waist_sway          # waist_yaw
+            # Left arm
+            joint_cmd[15] = l_shoulder_pitch    # left_shoulder_pitch
+            joint_cmd[16] = l_shoulder_roll     # left_shoulder_roll
+            joint_cmd[18] = l_elbow             # left_elbow
+            # Right arm
+            joint_cmd[22] = r_shoulder_pitch    # right_shoulder_pitch
+            joint_cmd[23] = r_shoulder_roll     # right_shoulder_roll
+            joint_cmd[25] = r_elbow             # right_elbow
             
             sequence.append({'time': t, 'joints': joint_cmd.copy()})
         

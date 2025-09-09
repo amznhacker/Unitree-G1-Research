@@ -79,14 +79,19 @@ class RobotDance:
             # Sharp waist turns
             waist_turn = 0.5 * (1 if int(t / (2 * self.beat_duration)) % 2 == 0 else -1)
             
-            joint_cmd = np.zeros(len(self.joints))
-            joint_cmd[self.joints['left_hip_pitch']] = left_step
-            joint_cmd[self.joints['right_hip_pitch']] = right_step
-            joint_cmd[self.joints['left_shoulder_pitch']] = l_shoulder
-            joint_cmd[self.joints['right_shoulder_pitch']] = r_shoulder
-            joint_cmd[self.joints['left_elbow']] = l_elbow
-            joint_cmd[self.joints['right_elbow']] = r_elbow
-            joint_cmd[self.joints['waist']] = waist_turn
+            joint_cmd = np.zeros(29)
+            # Left leg
+            joint_cmd[0] = left_step            # left_hip_pitch
+            # Right leg
+            joint_cmd[6] = right_step           # right_hip_pitch
+            # Waist
+            joint_cmd[12] = waist_turn          # waist_yaw
+            # Left arm
+            joint_cmd[15] = l_shoulder          # left_shoulder_pitch
+            joint_cmd[18] = l_elbow             # left_elbow
+            # Right arm
+            joint_cmd[22] = r_shoulder          # right_shoulder_pitch
+            joint_cmd[25] = r_elbow             # right_elbow
             
             sequence.append({'time': t, 'joints': joint_cmd.copy()})
         

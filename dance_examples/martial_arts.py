@@ -37,50 +37,50 @@ class MartialArts:
             flow = self.tai_chi_flow(t)
             stance = self.kung_fu_stance(t, 8)  # Change stance every 8 seconds
             
-            joint_cmd = np.zeros(23)
+            joint_cmd = np.zeros(29)
             
             if stance == "horse":
                 # Horse stance - wide, low
-                joint_cmd[2] = -0.8   # left_hip_roll
-                joint_cmd[3] = -1.0   # left_hip_pitch
-                joint_cmd[4] = -1.2   # left_knee
-                joint_cmd[8] = 0.8    # right_hip_roll
-                joint_cmd[9] = -1.0   # right_hip_pitch
-                joint_cmd[10] = -1.2  # right_knee
-                joint_cmd[13] = 0.5 * flow  # left_shoulder_pitch
-                joint_cmd[18] = -0.5 * flow # right_shoulder_pitch
+                joint_cmd[0] = -1.0   # left_hip_pitch
+                joint_cmd[1] = -0.8   # left_hip_roll
+                joint_cmd[3] = -1.2   # left_knee
+                joint_cmd[6] = -1.0   # right_hip_pitch
+                joint_cmd[7] = 0.8    # right_hip_roll
+                joint_cmd[9] = -1.2   # right_knee
+                joint_cmd[15] = 0.5 * flow  # left_shoulder_pitch
+                joint_cmd[22] = -0.5 * flow # right_shoulder_pitch
                 
             elif stance == "crane":
                 # Crane stance - one leg up
-                joint_cmd[3] = 1.2    # left_hip_pitch (leg up)
-                joint_cmd[4] = -2.0   # left_knee
-                joint_cmd[9] = -0.3   # right_hip_pitch
-                joint_cmd[13] = 1.5   # left_shoulder_pitch (wing up)
-                joint_cmd[18] = -0.5  # right_shoulder_pitch
-                joint_cmd[14] = 1.0   # left_shoulder_roll
+                joint_cmd[0] = 1.2    # left_hip_pitch (leg up)
+                joint_cmd[3] = -2.0   # left_knee
+                joint_cmd[6] = -0.3   # right_hip_pitch
+                joint_cmd[15] = 1.5   # left_shoulder_pitch (wing up)
+                joint_cmd[16] = 1.0   # left_shoulder_roll
+                joint_cmd[22] = -0.5  # right_shoulder_pitch
                 
             elif stance == "tiger":
                 # Tiger stance - crouched, ready to pounce
-                joint_cmd[3] = -0.8   # left_hip_pitch
-                joint_cmd[4] = -1.5   # left_knee
-                joint_cmd[9] = -0.8   # right_hip_pitch
-                joint_cmd[10] = -1.5  # right_knee
-                joint_cmd[13] = -0.5  # left_shoulder_pitch (claws)
-                joint_cmd[16] = -1.0  # left_elbow
-                joint_cmd[18] = -0.5  # right_shoulder_pitch
-                joint_cmd[21] = -1.0  # right_elbow
+                joint_cmd[0] = -0.8   # left_hip_pitch
+                joint_cmd[3] = -1.5   # left_knee
+                joint_cmd[6] = -0.8   # right_hip_pitch
+                joint_cmd[9] = -1.5   # right_knee
+                joint_cmd[15] = -0.5  # left_shoulder_pitch (claws)
+                joint_cmd[18] = -1.0  # left_elbow
+                joint_cmd[22] = -0.5  # right_shoulder_pitch
+                joint_cmd[25] = -1.0  # right_elbow
                 
             else:  # dragon
                 # Dragon stance - flowing, serpentine
-                joint_cmd[0] = 0.8 * math.sin(2 * math.pi * t / self.beat_duration)  # waist_yaw
-                joint_cmd[3] = -0.5 + 0.3 * flow  # left_hip_pitch
-                joint_cmd[9] = -0.5 - 0.3 * flow  # right_hip_pitch
-                joint_cmd[13] = 1.0 * math.sin(2 * math.pi * t / self.beat_duration + math.pi/4)
-                joint_cmd[18] = 1.0 * math.sin(2 * math.pi * t / self.beat_duration - math.pi/4)
+                joint_cmd[12] = 0.8 * math.sin(2 * math.pi * t / self.beat_duration)  # waist_yaw
+                joint_cmd[0] = -0.5 + 0.3 * flow  # left_hip_pitch
+                joint_cmd[6] = -0.5 - 0.3 * flow  # right_hip_pitch
+                joint_cmd[15] = 1.0 * math.sin(2 * math.pi * t / self.beat_duration + math.pi/4)
+                joint_cmd[22] = 1.0 * math.sin(2 * math.pi * t / self.beat_duration - math.pi/4)
             
             # Add flowing arm movements for all stances
-            joint_cmd[15] = 0.3 * math.sin(math.pi * t / (2 * self.beat_duration))  # left_shoulder_yaw
-            joint_cmd[20] = -0.3 * math.sin(math.pi * t / (2 * self.beat_duration)) # right_shoulder_yaw
+            joint_cmd[17] = 0.3 * math.sin(math.pi * t / (2 * self.beat_duration))  # left_shoulder_yaw
+            joint_cmd[24] = -0.3 * math.sin(math.pi * t / (2 * self.beat_duration)) # right_shoulder_yaw
             
             sequence.append({'time': t, 'joints': joint_cmd.tolist()})
         

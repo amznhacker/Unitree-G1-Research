@@ -43,40 +43,40 @@ class BreakDance:
             # Power moves
             power_phase = math.sin(math.pi * t / 4)
             
-            joint_cmd = np.zeros(23)
+            joint_cmd = np.zeros(29)
             
             # Freeze poses at specific times
             if self.freeze_pose(t, 8, 2):
                 # Baby freeze
-                joint_cmd[3] = -0.8   # left_hip_pitch
-                joint_cmd[4] = -1.5   # left_knee
-                joint_cmd[13] = -1.0  # left_shoulder_pitch
-                joint_cmd[16] = -1.5  # left_elbow
+                joint_cmd[0] = -0.8   # left_hip_pitch
+                joint_cmd[3] = -1.5   # left_knee
+                joint_cmd[15] = -1.0  # left_shoulder_pitch
+                joint_cmd[18] = -1.5  # left_elbow
             elif self.freeze_pose(t, 20, 2):
                 # Chair freeze
-                joint_cmd[3] = -1.2   # left_hip_pitch
-                joint_cmd[9] = -1.2   # right_hip_pitch
-                joint_cmd[13] = 1.5   # left_shoulder_pitch
-                joint_cmd[18] = 1.5   # right_shoulder_pitch
+                joint_cmd[0] = -1.2   # left_hip_pitch
+                joint_cmd[6] = -1.2   # right_hip_pitch
+                joint_cmd[15] = 1.5   # left_shoulder_pitch
+                joint_cmd[22] = 1.5   # right_shoulder_pitch
             else:
                 # Toprock and power moves
-                joint_cmd[1] = cross_step * 0.5      # left_hip_yaw
-                joint_cmd[2] = bounce                # left_hip_roll
-                joint_cmd[3] = bounce * 0.5          # left_hip_pitch
-                joint_cmd[7] = -cross_step * 0.5     # right_hip_yaw
-                joint_cmd[8] = -bounce               # right_hip_roll
-                joint_cmd[9] = bounce * 0.5          # right_hip_pitch
+                joint_cmd[0] = bounce * 0.5          # left_hip_pitch
+                joint_cmd[1] = bounce                # left_hip_roll
+                joint_cmd[2] = cross_step * 0.5      # left_hip_yaw
+                joint_cmd[6] = bounce * 0.5          # right_hip_pitch
+                joint_cmd[7] = -bounce               # right_hip_roll
+                joint_cmd[8] = -cross_step * 0.5     # right_hip_yaw
                 
                 # Dynamic arm movements
-                joint_cmd[13] = left_arm             # left_shoulder_pitch
-                joint_cmd[14] = 0.5 * math.cos(4 * math.pi * t / self.beat_duration)
-                joint_cmd[16] = -0.8 + 0.5 * abs(left_arm)  # left_elbow
-                joint_cmd[18] = right_arm            # right_shoulder_pitch
-                joint_cmd[19] = -0.5 * math.cos(4 * math.pi * t / self.beat_duration)
-                joint_cmd[21] = -0.8 + 0.5 * abs(right_arm) # right_elbow
+                joint_cmd[15] = left_arm             # left_shoulder_pitch
+                joint_cmd[16] = 0.5 * math.cos(4 * math.pi * t / self.beat_duration)
+                joint_cmd[18] = -0.8 + 0.5 * abs(left_arm)  # left_elbow
+                joint_cmd[22] = right_arm            # right_shoulder_pitch
+                joint_cmd[23] = -0.5 * math.cos(4 * math.pi * t / self.beat_duration)
+                joint_cmd[25] = -0.8 + 0.5 * abs(right_arm) # right_elbow
                 
                 # Waist movement
-                joint_cmd[0] = 0.8 * math.sin(2 * math.pi * t / self.beat_duration)
+                joint_cmd[12] = 0.8 * math.sin(2 * math.pi * t / self.beat_duration)
             
             sequence.append({'time': t, 'joints': joint_cmd.tolist()})
         
