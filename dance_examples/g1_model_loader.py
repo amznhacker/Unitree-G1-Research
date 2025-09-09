@@ -4,14 +4,22 @@ import mujoco
 
 class G1ModelLoader:
     def load_g1_model(self):
-        # Try G1 URDF
-        urdf_path = os.path.expanduser("~/g1_workspace/unitree_ros/robots/g1_description/urdf/g1.urdf")
-        if os.path.exists(urdf_path):
-            try:
-                print(f"🤖 Loading G1 model")
-                return mujoco.MjModel.from_xml_path(urdf_path)
-            except:
-                pass
+        # Try G1 23DOF models in order of preference
+        model_paths = [
+            "~/g1_workspace/unitree_ros/robots/g1_description/g1_23dof.urdf",
+            "~/g1_workspace/unitree_ros/robots/g1_description/g1_23dof_rev_1_0.urdf",
+            "~/g1_workspace/unitree_ros/robots/g1_description/g1_23dof.xml"
+        ]
+        
+        for path in model_paths:
+            full_path = os.path.expanduser(path)
+            if os.path.exists(full_path):
+                try:
+                    print(f"🤖 Loading G1 model: {os.path.basename(full_path)}")
+                    return mujoco.MjModel.from_xml_path(full_path)
+                except Exception as e:
+                    print(f"⚠️ Failed to load {os.path.basename(full_path)}: {e}")
+                    continue
         
         # Fallback model
         print("📦 Using fallback model")
