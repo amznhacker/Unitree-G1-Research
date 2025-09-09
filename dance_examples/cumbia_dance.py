@@ -58,13 +58,22 @@ class CumbiaDance:
             waist_rotation = 0.6 * math.sin(2 * math.pi * t / (4 * self.beat_duration))
             
             joint_cmd = np.zeros(23)  # Full 23DOF
-            # Hips
+            # Add stepping pattern
+            step_phase = math.sin(2 * math.pi * t / self.beat_duration)
+            left_step = 0.4 * max(0, step_phase)  # Lift left foot
+            right_step = 0.4 * max(0, -step_phase)  # Lift right foot
+            
+            # Hips with stepping
             joint_cmd[1] = hip_yaw      # left_hip_yaw
             joint_cmd[2] = hip_roll     # left_hip_roll  
-            joint_cmd[3] = hip_pitch    # left_hip_pitch
+            joint_cmd[3] = hip_pitch + left_step    # left_hip_pitch
+            joint_cmd[4] = -left_step * 0.8         # left_knee
+            joint_cmd[5] = left_step * 0.4          # left_ankle_pitch
             joint_cmd[7] = -hip_yaw     # right_hip_yaw
             joint_cmd[8] = -hip_roll    # right_hip_roll
-            joint_cmd[9] = hip_pitch    # right_hip_pitch
+            joint_cmd[9] = hip_pitch + right_step   # right_hip_pitch
+            joint_cmd[10] = -right_step * 0.8       # right_knee
+            joint_cmd[11] = right_step * 0.4        # right_ankle_pitch
             # Arms
             joint_cmd[13] = l_shoulder_pitch  # left_shoulder_pitch
             joint_cmd[14] = l_shoulder_roll   # left_shoulder_roll

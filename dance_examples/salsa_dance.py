@@ -53,21 +53,39 @@ class SalsaDance:
             r_shoulder_pitch, r_shoulder_roll, r_elbow = self.arm_salsa_pattern(t, 'right')
             
             # Hip isolation
-            hip_roll = 0.4 * math.sin(6 * math.pi * t / self.beat_duration)
+            hip_roll = 0.6 * math.sin(6 * math.pi * t / self.beat_duration)
+            
+            # Fast footwork
+            quick_step = math.sin(8 * math.pi * t / self.beat_duration)
+            left_knee = -0.8 * max(0, quick_step)
+            right_knee = -0.8 * max(0, -quick_step)
             
             # Spins at specific times
             waist_spin = self.spin_sequence(t, 8, 1.5) + self.spin_sequence(t, 15, 1.5)
             
-            joint_cmd = np.zeros(len(self.joints))
-            joint_cmd[self.joints['left_hip_pitch']] = left_step
-            joint_cmd[self.joints['right_hip_pitch']] = right_step
-            joint_cmd[self.joints['left_hip_roll']] = hip_roll
-            joint_cmd[self.joints['right_hip_roll']] = -hip_roll
-            joint_cmd[self.joints['left_shoulder_pitch']] = l_shoulder_pitch
-            joint_cmd[self.joints['right_shoulder_pitch']] = r_shoulder_pitch
-            joint_cmd[self.joints['waist']] = waist_spin
+            joint_cmd = np.zeros(23)  # Full 23DOF
+            # Legs with fast stepping
+            joint_cmd[1] = 0.2 * quick_step     # left_hip_yaw
+            joint_cmd[2] = hip_roll             # left_hip_roll
+            joint_cmd[3] = left_step * 0.8      # left_hip_pitch
+            joint_cmd[4] = left_knee            # left_knee
+            joint_cmd[5] = left_step * 0.3      # left_ankle_pitch
+            joint_cmd[7] = -0.2 * quick_step    # right_hip_yaw
+            joint_cmd[8] = -hip_roll            # right_hip_roll
+            joint_cmd[9] = right_step * 0.8     # right_hip_pitch
+            joint_cmd[10] = right_knee          # right_knee
+            joint_cmd[11] = right_step * 0.3    # right_ankle_pitch
+            # Arms
+            joint_cmd[13] = l_shoulder_pitch    # left_shoulder_pitch
+            joint_cmd[14] = l_shoulder_roll     # left_shoulder_roll
+            joint_cmd[16] = l_elbow             # left_elbow
+            joint_cmd[18] = r_shoulder_pitch    # right_shoulder_pitch
+            joint_cmd[19] = r_shoulder_roll     # right_shoulder_roll
+            joint_cmd[21] = r_elbow             # right_elbow
+            # Waist
+            joint_cmd[0] = waist_spin           # waist_yaw
             
-            sequence.append({'time': t, 'joints': joint_cmd.copy()})
+            sequence.append({'time': t, 'joints': joint_cmd.tolist()})
         
         return sequence
 

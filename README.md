@@ -19,21 +19,25 @@ cd ~/g1_workspace/dance_examples
 python3 dance_simulator.py
 ```
 
-## 🎭 Available Dances
+## 🎭 Available Performances
 
-| Dance | Style | Duration |
-|-------|-------|----------|
-| **Cumbia** | Hip sway, flowing arms | 20s |
-| **Salsa** | Fast steps with spins | 15s |
-| **Bachata** | Hip pops, romantic | 20s |
-| **Robot** | Mechanical precision | 25s |
+| Performance | Style | Features | Duration |
+|-------------|-------|----------|----------|
+| **Cumbia** | Hip sway with stepping | Foot movements, hip isolation | 20s |
+| **Salsa** | Fast footwork with spins | Quick steps, dramatic spins | 15s |
+| **Bachata** | Hip pops, romantic | Sensual movements, stepping | 20s |
+| **Robot** | Mechanical precision | Sharp angles, robotic moves | 25s |
+| **Breakdance** | Hip-hop with freezes | Power moves, freeze poses | 20s |
+| **Martial Arts** | Kung Fu kata | Stances, flowing movements | 30s |
 
 ```bash
-# Run individual dances
+# Run individual performances
 python3 cumbia_dance.py
 python3 salsa_dance.py
 python3 bachata_dance.py
 python3 robot_dance.py
+python3 breakdance.py
+python3 martial_arts.py
 ```
 
 ## 🤖 Simulation to Real Robot

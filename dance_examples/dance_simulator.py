@@ -13,6 +13,8 @@ from cumbia_dance import CumbiaDance
 from salsa_dance import SalsaDance
 from bachata_dance import BachataDance
 from robot_dance import RobotDance
+from breakdance import BreakDance
+from martial_arts import MartialArts
 
 class G1DanceSimulator:
     def __init__(self):
@@ -64,10 +66,12 @@ class G1DanceSimulator:
     def dance_showcase(self):
         """Run all dances in sequence"""
         dances = [
-            (CumbiaDance, 15, "🎵 Cumbia - Hip sway and flowing arms"),
-            (SalsaDance, 12, "💃 Salsa - Fast steps with spins"),
+            (CumbiaDance, 15, "🎵 Cumbia - Hip sway with stepping"),
+            (SalsaDance, 12, "💃 Salsa - Fast footwork with spins"),
             (BachataDance, 15, "💕 Bachata - Sensual hip pops"),
-            (RobotDance, 20, "🤖 Robot - Mechanical precision")
+            (RobotDance, 20, "🤖 Robot - Mechanical precision"),
+            (BreakDance, 18, "🕺 Breakdance - Hip-hop with freezes"),
+            (MartialArts, 25, "🥋 Martial Arts - Kung Fu kata")
         ]
         
         print("🎪 G1 Dance Showcase Starting!")
@@ -86,14 +90,16 @@ def main():
     try:
         simulator = G1DanceSimulator()
         
-        print("G1 Dance Simulator")
-        print("1. Cumbia Dance")
-        print("2. Salsa Dance") 
-        print("3. Bachata Dance")
-        print("4. Robot Dance")
-        print("5. Full Showcase")
+        print("🤖 G1 Performance Simulator")
+        print("1. 🎵 Cumbia Dance - Hip sway and steps")
+        print("2. 💃 Salsa Dance - Fast steps with spins") 
+        print("3. 💕 Bachata Dance - Romantic hip pops")
+        print("4. 🤖 Robot Dance - Mechanical precision")
+        print("5. 🕺 Breakdance - Hip-hop with freezes")
+        print("6. 🥋 Martial Arts - Kung Fu kata")
+        print("7. 🎪 Full Showcase - All performances")
         
-        choice = input("Select dance (1-5): ")
+        choice = input("Select performance (1-7): ")
         
         if choice == '1':
             simulator.run_dance(CumbiaDance, 20)
@@ -104,6 +110,10 @@ def main():
         elif choice == '4':
             simulator.run_dance(RobotDance, 25)
         elif choice == '5':
+            simulator.run_dance(BreakDance, 20)
+        elif choice == '6':
+            simulator.run_dance(MartialArts, 30)
+        elif choice == '7':
             simulator.dance_showcase()
         else:
             print("Invalid choice")
