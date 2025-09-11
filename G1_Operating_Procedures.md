@@ -184,7 +184,9 @@ Document condition of:
 - Emergency Services: 911
 - Base Operations: [PHONE]
 - Transport/Recovery: [PHONE]
-
+# Connecting with AP 
+#Connecting with Wi-Fi 
+wifi network must not have any special characters that includes spaces and "-". If like me you are unable to change the network name you may use computer, my hotspot was not sptab le enough 
 ---
 **Document Version**: 1.0  
 **Last Updated**: [DATE]  
